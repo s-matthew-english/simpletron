@@ -21,13 +21,18 @@
 #define HALT 43       // Halt- i.e., the program has completed its task. 
 
 
-int main(void)
+int main()
 {
-    int n;
 
-    printf("Enter the number:\n");
-    scanf("%d", &n);
-    printf("You entered: %d\n", n);
+  int memory[3] = { 0 };
 
-    return 0;
+  for(int i = 0; i < 3; i++) {
+    scanf("%d", &memory[i]);
+  }
+
+  for(int i = 0; i < 3; i++) {
+    printf("%d",memory[i]);
+  }
+
+  return 0;
 }
