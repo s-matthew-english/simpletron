@@ -17,10 +17,10 @@
 # define HALT       43
 
 
-void memPrint(int arr[]){
-    for(int i = 0 ; i < 100 ; i++){
-        printf("MEM: %d, %d \n", i, arr[i]);
-    }
+void printMemory(int arr[]){
+    printf("\n");
+    for(int i = 0 ; i < 100 ; i++){ printf("%d : %d\t\t", i, arr[i]); }
+    printf("\n");
     return;
 }
 
@@ -36,13 +36,90 @@ void inputProgramFromConsole(int memory[]) {
         i++;
         scanf("%d", &opcode);
     }
-    memPrint(memory);
-    // printf("Done\n");
     return;
 }
 
+int getOpcode(int full){ return full / 100; }
 
-void runProgram(){
+int getValue(int full){ return full % 100; }
+
+void execute(int* machineHead, int* accumulator, int memory[]){
+    int opcode = getOpcode(memory[*machineHead]);
+    int value = getValue(memory[*machineHead]);
+
+    switch(opcode) {
+        case READ :
+            printf("READ: ");
+            scanf("%d", &memory[value]);
+            (*machineHead)++;
+            break;
+        case WRITE :
+            printf("WRITE: ");
+            printf("%d, \n", memory[value]);
+            (*machineHead)++;
+            break;
+        case LOAD :
+            // printf("load: \n");
+            *accumulator = memory[value];
+            (*machineHead)++;
+            break;
+        case STORE :
+            // printf("store: \n");
+            memory[value] = *accumulator;
+            (*machineHead)++;
+            break;
+        case ADD :
+            *accumulator = *accumulator + memory[value];
+            (*machineHead)++;
+            break;
+        case SUBTRACT :
+            *accumulator = *accumulator - memory[value];
+            (*machineHead)++;
+            break;
+        case DIVIDE :
+            *accumulator = memory[value] / *accumulator;
+            (*machineHead)++;
+            break;
+        case MULTIPLY :
+            *accumulator = memory[value] * *accumulator;
+            (*machineHead)++;
+            break;
+        case BRANCH :
+            *machineHead = value;
+            break;
+        case BRANCHNEG :
+            if(*accumulator < 0){
+                *machineHead = value;
+            }else{
+                (*machineHead)++;
+            }
+            break;
+        case BRANCHZERO :
+            if(*accumulator == 0){
+                *machineHead = value;
+            }else{
+                (*machineHead)++;
+            }
+            break;        // case HALT :
+        case HALT :
+            *machineHead = 100;
+            break;
+        default:
+            printf("INVALID OPCODE: '%d'", opcode);
+            *machineHead = 100;
+            break;
+    }
+    return;
+}
+
+void runProgram(int memory[]){
+    if(getOpcode(memory[0]) == 34){ return; }
+    int machineHead = 0;
+    int accumulator = 0;
+
+    while(machineHead < 100){
+        execute(&machineHead, &accumulator, memory);
+    }
 
     return;
 }
@@ -50,14 +127,21 @@ void runProgram(){
 
 int main(){
     int memory[100] = { 0 };
-    int accumulater = 0;
 
     inputProgramFromConsole(memory);
 
-    runProgram();
+    runProgram(memory);
+
+    printMemory(memory);
 
     return 0;
 }
 
 
-
+// sample
+// 1007
+// 2007
+// 2108
+// 1108
+// 4300
+// -99999
