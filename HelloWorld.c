@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define MEMSIZE 03
+
 /* Input/output operations: */
 #define READ 10       // Read a word from the terminal into a specific location in memory.
 #define WRITE 11      // Write a word from a specific location in memory to the terminal.
@@ -20,19 +22,23 @@
 #define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
 #define HALT 43       // Halt- i.e., the program has completed its task. 
 
+void printMemoryContents() {
+  for(int i = 0; i < 3; i++) {
+    printf("%d",memory[i]);
+  }
+}
 
 int main()
 {
 
-  int memory[3] = { 0 };
+  int memory[MEMSIZE] = { 0 };
 
   for(int i = 0; i < 3; i++) {
     scanf("%d", &memory[i]);
   }
 
-  for(int i = 0; i < 3; i++) {
-    printf("%d",memory[i]);
-  }
+
 
   return 0;
+
 }
