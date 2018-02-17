@@ -23,6 +23,18 @@ void printMemory(int arr[]){
     printf("\n");
     return;
 }
+void printArgv(int size, char arr[]){
+    printf("\n");
+    int nullCount = 0;
+    int i = 0;
+    while(nullCount < size){ 
+        if(!arr[i]){ nullCount++; }
+        printf("%d : %c\t\t", i, arr[i]); 
+        i++;
+    }
+    printf("\n");
+    return;
+}
 
 void inputProgramFromConsole(int memory[]) {
     int i = 0;
@@ -125,7 +137,9 @@ void runProgram(int memory[]){
 }
 
 
-int main(){
+int main(int argc, char *argv[]){
+    // printf("HELLO: %d", argc);
+    // printArgv(argc, *argv);
     int memory[100] = { 0 };
 
     inputProgramFromConsole(memory);
