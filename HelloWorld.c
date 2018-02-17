@@ -1,23 +1,63 @@
 #include <stdio.h>
-int main()
-{
-    int t1 = 0, t2 = 1, nextTerm = 0, n;
 
-    printf("Enter a positive number: ");
-    scanf("%d", &n);
+# define READ       10
+# define WRITE      11
 
-    // displays the first two terms which is always 0 and 1
-    printf("Fibonacci Series: %d, %d, ", t1, t2);
+# define LOAD       20
+# define STORE      21
 
-    nextTerm = t1 + t2;
+# define ADD        30
+# define SUBTRACT   31
+# define DIVIDE     32
+# define MULTIPLY   33
 
-    while(nextTerm <= n)
-    {
-        printf("%d, ",nextTerm);
-        t1 = t2;
-        t2 = nextTerm;
-        nextTerm = t1 + t2;
+# define BRANCH     40
+# define BRANCHNEG  41
+# define BRANCHZERO 42
+# define HALT       43
+
+
+void memPrint(int arr[]){
+    for(int i = 0 ; i < 100 ; i++){
+        printf("MEM: %d, %d \n", i, arr[i]);
     }
-    
+    return;
+}
+
+void inputProgramFromConsole(int memory[]) {
+    int i = 0;
+    int opcode;
+
+    printf("Enter Byte Codes:\n");
+    scanf("%d", &opcode);
+
+    while(opcode != -99999){
+        memory[i] = opcode;
+        i++;
+        scanf("%d", &opcode);
+    }
+    memPrint(memory);
+    // printf("Done\n");
+    return;
+}
+
+
+void runProgram(){
+
+    return;
+}
+
+
+int main(){
+    int memory[100] = { 0 };
+    int accumulater = 0;
+
+    inputProgramFromConsole(memory);
+
+    runProgram();
+
     return 0;
 }
+
+
+
