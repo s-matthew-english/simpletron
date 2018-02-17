@@ -1,63 +1,33 @@
 #include <stdio.h>
 
-# define READ       10
-# define WRITE      11
+/* Input/output operations: */
+#define READ 10       // Read a word from the terminal into a specific location in memory.
+#define WRITE 11      // Write a word from a specific location in memory to the terminal.
 
-# define LOAD       20
-# define STORE      21
+/* Load/store operations: */
+#define LOAD 20       // Load a word from a specific location into the accumulator.
+#define STORE 21      // Store a word from the accumulator into a specific location in memory.
 
-# define ADD        30
-# define SUBTRACT   31
-# define DIVIDE     32
-# define MULTIPLY   33
+/* Arithmetic operations: */
+#define ADD 30        // Add a word from a specific location in memory to the word in the accumulator (leave result in accumulator).
+#define SUBTRACT 31   // Subtract a word from a specific location in memory from the word in the accumulator (leave result in accumulator).
+#define DIVIDE 32     // Divide a word from a specific location in memory into the word in the accumulator (leave result in accumulator).
+#define MULTIPLY 33   // Multiply a word from a specific location in memory by the word in the accumulator (leave result in accumulator).
 
-# define BRANCH     40
-# define BRANCHNEG  41
-# define BRANCHZERO 42
-# define HALT       43
-
-
-void memPrint(int arr[]){
-    for(int i = 0 ; i < 100 ; i++){
-        printf("MEM: %d, %d \n", i, arr[i]);
-    }
-    return;
-}
-
-void inputProgramFromConsole(int memory[]) {
-    int i = 0;
-    int opcode;
-
-    printf("Enter Byte Codes:\n");
-    scanf("%d", &opcode);
-
-    while(opcode != -99999){
-        memory[i] = opcode;
-        i++;
-        scanf("%d", &opcode);
-    }
-    memPrint(memory);
-    // printf("Done\n");
-    return;
-}
+/* Transfer of control operations: */ 
+#define BRANCH 40     // Branch to a specific location in memory.
+#define BRANCHNEG 41  // Branch to a specific location in memory if the accumulator is negative. 
+#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
+#define HALT 43       // Halt- i.e., the program has completed its task. 
 
 
-void runProgram(){
+int main(void)
+{
+    int n;
 
-    return;
-}
-
-
-int main(){
-    int memory[100] = { 0 };
-    int accumulater = 0;
-
-    inputProgramFromConsole(memory);
-
-    runProgram();
+    printf("Enter the number:\n");
+    scanf("%d", &n);
+    printf("You entered: %d\n", n);
 
     return 0;
 }
-
-
-
