@@ -45,26 +45,101 @@ void readInputFromConsole(int memory[]) {
     return;
 }
 
-/* This function takes the first two
+/* 
+ * This function takes the first two
  * digits of the input parameter.
- *
  */
-int opCoce(int aggregateValue) {
+int getOpCode(int aggregateValue) {
     return aggregateValue / 100;
 }
 
-int opOperand(int aggregateValue) {
+/* 
+ * This function takes the last two
+ * digits of the input parameter.
+ */
+int getOperand(int aggregateValue) {
     return aggregateValue % 100;
 }
+
+void executeByteCode(int memory[], int accumulator) {
+  int programCounter;
+  int operationCode;
+  int operand;
+
+  for(int i = 0; i < 10; i++) {
+    printf("%d",memory[i]);
+
+    programCounter = i;
+    operationCode = getOpCode(memory[i]);
+    operand = getOperand(memory[i]);
+
+  switch(operationCode) {
+    case READ:
+
+      (*instructionCounter)++;
+      break;
+    case WRITE:
+
+      (*instructionCounter)++;
+      break;
+    case LOAD:
+
+      (*instructionCounter)++;
+      break;
+    case STORE:
+
+      (*instructionCounter)++;
+      break;
+    case ADD:
+      *accumulator = memory[programCounter] / *accumulator;
+      (*instructionCounter)++;
+      break;
+    case SUBTRACT:
+
+      (*instructionCounter)++;
+      break;
+    case DIVIDE:
+      *accumulator = memory[programCounter] / *accumulator;
+      (*instructionCounter)++;
+      break;
+    case MULTIPLY:
+
+      (*instructionCounter)++;
+      break;
+    case BRANCH:
+
+      (*instructionCounter)++;
+      break;
+    case BRANCHNEG:
+
+      (*instructionCounter)++;
+      break;
+    case BRANCHZERO:
+
+      (*instructionCounter)++;
+      break;
+    case HALT:
+
+      (*instructionCounter)++;
+      break;
+  }
+
+  }
+}
+
+
 
 int main()
 {
 
   int memory[MEMSIZE] = { 0 };
+  int accumulator;
 
   readInputFromConsole(memory);
 
   printMemoryContents(memory);
+
+  executeByteCode(memory, accumulator);
 
   return 0;
 
