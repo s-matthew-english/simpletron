@@ -1,10 +1,3 @@
-class TestHead
-{
-public:
-  void foo();
-  int bar;
-};
+#include "testhead.c" 
 
-void TestHead::foo(){
-  printf("HERE\n");
-}
+void foo();
