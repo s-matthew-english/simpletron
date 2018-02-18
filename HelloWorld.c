@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 # define READ       10
 # define WRITE      11
@@ -140,6 +141,11 @@ void runProgram(int memory[]){
 int main(int argc, char *argv[]){
     // printf("HELLO: %d", argc);
     // printArgv(argc, *argv);
+    // printf("OOOO: %s", argv[1]);
+
+
+    FILE *file = fopen(argv[1], "r");
+
     int memory[100] = { 0 };
 
     inputProgramFromConsole(memory);
