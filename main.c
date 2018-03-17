@@ -17,6 +17,22 @@
 # define BRANCHZERO 42
 # define HALT       43
 
+int  charToInt(char *str){
+  int result;
+  int puiss;
+  result = 0;
+  puiss = 1;
+  while (('-' == (*str)) || ((*str) == '+')){
+    if (*str == '-')
+      puiss = puiss * -1;
+    str++;
+  }
+  while ((*str >= '0') && (*str <= '9')){
+    result = (result * 10) + ((*str) - '0');
+    str++;
+  }
+  return (result * puiss);
+}
 
 void printMemory(int arr[]){
     printf("\n");
@@ -121,12 +137,13 @@ void execute(int* machineHead, int* accumulator, int memory[]){
             printf("INVALID OPCODE: '%d'", opcode);
             *machineHead = 100;
             break;
+
     }
     return;
 }
 
 void runProgram(int memory[]){
-    if(getOpcode(memory[0]) == 34){ return; }
+    if(getOpcode(memory[0]) == 43){ return; }
     int machineHead = 0;
     int accumulator = 0;
 
@@ -139,28 +156,43 @@ void runProgram(int memory[]){
 
 
 int main(int argc, char *argv[]){
-    printf("OOOO: %s ", argv[1]);
+    // printf("OOOO: %s ", argv[1]);
 
-    FILE *file = fopen( argv[1], "r" );
+    FILE * fp;
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
     int x;
     int i;
     int memory[100] = { 0 };
 
-    while  ( ( x = fgetc( file ) ) != EOF ){ 
-        memory[i] = x;
+    fp = fopen( argv[1], "r" );
+    if (fp == NULL)
+        exit(EXIT_FAILURE);
+
+    while ((read = getline(&line, &len, fp)) != -1) {
+        printf("Retrieved line of length %zu :\n", read);
+        printf("%s", line);
+
+        memory[i] = charToInt(line);
         i++;
         printf( "%c", x ); 
     }
-    fclose( file );
+    fclose(fp);
+    if (line)
+        free(line);
+
 
 
     // inputProgramFromConsole(memory);
 
-    // runProgram(memory);
+    runProgram(memory);
 
-    // printMemory(memory);
+    printMemory(memory);
 
-    return 0;
+    // return 0;
+    exit(EXIT_SUCCESS);
 }
 
 
