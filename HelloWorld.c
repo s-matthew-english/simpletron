@@ -23,14 +23,14 @@
 #define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
 #define HALT 43       // Halt- i.e., the program has completed its task. 
 
-// 1007
-// 1008
-// 2007
-// 3008
-// 2109
-// 1109
-// 4300
-// -99999
+// READ to location 07:                     1007 
+// READ to location 08:                     1008
+// LOAD word from 07 into accumulator:      2007
+// ADD word from 08 to word in accumulator: 3008
+// STORE word from accumulator to memory:   2109
+// WRITE the word stored in 09 to terminal: 1109
+// HALT the program:                        4300
+// TERMINATE:                               -99999
 
 void printMemoryContents(int memory[]) {
   for(int i = 0; i < 10; i++) {
@@ -56,7 +56,11 @@ void readInputFromConsole(int memory[]) {
 
 /* 
  * This function takes the first two
- * digits of the input parameter.
+ * digits of the input parameter. 
+ *
+ * For example, `2007 / 100 = 20.07`, 
+ * the `0.7` will be truncated when
+ * we store the value as an int.  
  */
 int getOpCode(int aggregateValue) {
     return aggregateValue / 100;
@@ -65,6 +69,11 @@ int getOpCode(int aggregateValue) {
 /* 
  * This function takes the last two
  * digits of the input parameter.
+ * 
+ * For example, `4300 % 100 = 0`,
+ * additionally, `2109 % 100 = 9`, 
+ * so we throw away the first two 
+ * digits and store only the last. 
  */
 int getOperand(int aggregateValue) {
     return aggregateValue % 100;
@@ -77,8 +86,11 @@ void executeByteCode(int memory[], int accumulator) {
 
   while(programCounter < 10) {
 
+    // Extract first two digits.
     operationCode = getOpCode(memory[programCounter]);
     //printf("operationCode: %d\n", operationCode);
+
+    // Extract last two digits.
     operand = getOperand(memory[programCounter]);
     //printf("operand: %d\n", operand);
 
@@ -104,6 +116,7 @@ void executeByteCode(int memory[], int accumulator) {
         programCounter++;
         break;
       case ADD:
+        printf("operand: %d\n", operand);
         accumulator = memory[operand] + accumulator;
         programCounter++;
         break;
