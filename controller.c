@@ -139,12 +139,16 @@ void runProgram(int memory[]){
 
 
 int main(int argc, char *argv[]){
-    // printf("HELLO: %d", argc);
-    // printArgv(argc, *argv);
-    // printf("OOOO: %s", argv[1]);
+    printf("OOOO: %s ", argv[1]);
 
-
-    FILE *file = fopen(argv[1], "r");
+    FILE *file = fopen( argv[1], "r" );
+    int x;
+    while  ( ( x = fgetc( file ) ) != EOF ){ 
+        memory[i] = x;
+        i++;
+        printf( "%c", x ); 
+    }
+    fclose( file );
 
     int memory[100] = { 0 };
 
