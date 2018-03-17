@@ -17,7 +17,7 @@
 # define BRANCHZERO 42
 # define HALT       43
 
-int  charToInt(char *str){
+int  stringToInt(char *str){
   int result;
   int puiss;
   result = 0;
@@ -129,7 +129,7 @@ void execute(int* machineHead, int* accumulator, int memory[]){
             }else{
                 (*machineHead)++;
             }
-            break;        // case HALT :
+            break;
         case HALT :
             *machineHead = 100;
             break;
@@ -137,7 +137,6 @@ void execute(int* machineHead, int* accumulator, int memory[]){
             printf("INVALID OPCODE: '%d'", opcode);
             *machineHead = 100;
             break;
-
     }
     return;
 }
@@ -150,13 +149,11 @@ void runProgram(int memory[]){
     while(machineHead < 100){
         execute(&machineHead, &accumulator, memory);
     }
-
     return;
 }
 
 
 int main(int argc, char *argv[]){
-    // printf("OOOO: %s ", argv[1]);
 
     FILE * fp;
     char * line = NULL;
@@ -170,12 +167,8 @@ int main(int argc, char *argv[]){
     fp = fopen( argv[1], "r" );
     if (fp == NULL)
         exit(EXIT_FAILURE);
-
     while ((read = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu :\n", read);
-        printf("%s", line);
-
-        memory[i] = charToInt(line);
+        memory[i] = stringToInt(line);
         i++;
         printf( "%c", x ); 
     }
@@ -183,23 +176,9 @@ int main(int argc, char *argv[]){
     if (line)
         free(line);
 
-
-
     // inputProgramFromConsole(memory);
-
     runProgram(memory);
-
     printMemory(memory);
 
-    // return 0;
     exit(EXIT_SUCCESS);
 }
-
-
-// sample
-// 1007
-// 2007
-// 2108
-// 1108
-// 4300
-// -99999
