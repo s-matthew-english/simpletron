@@ -3,7 +3,7 @@
 
 #include "assemblyHandler.c"
 #include "virtualMachine.c"
-#include "compiler/compiler.c"
+// #include "compiler.c"
 
 void printMemory(int arr[]){
   printf("\n");
